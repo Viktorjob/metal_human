@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "821383997749",
+    "project_id": "metalhuman-e7997",
+    "storage_bucket": "metalhuman-e7997.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821383997749:android:bc662eb513264df9b4447c",
+        "android_client_info": {
+          "package_name": "com.example.metal_human"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821383997749-81phkh8f1rimcp4s997qhjr7a3787b3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnyvlWLQMzRV6vMWct0FT_KtU9_8Fc2Gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821383997749-81phkh8f1rimcp4s997qhjr7a3787b3v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
