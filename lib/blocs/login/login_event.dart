@@ -14,7 +14,7 @@ class LoginSubmitted extends LoginEvent {
   @override
   List<Object> get props => [email, password];
 }
-class GoogleSignInRequested extends LoginEvent {}
+
 class RegisterSubmitted extends LoginEvent {
   final String email;
   final String password;

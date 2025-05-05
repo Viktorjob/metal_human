@@ -10,7 +10,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     on<LoginSubmitted>(_onLoginSubmitted);
     on<RegisterSubmitted>(_onRegisterSubmitted);
-    on<GoogleSignInRequested>(_onGoogleSignInRequested);
 
   }
 
@@ -63,33 +62,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
 
-  Future<void> _onGoogleSignInRequested(
-      GoogleSignInRequested event,
-      Emitter<LoginState> emit,
-      ) async {
-    emit(LoginLoading());
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        emit(LoginFailure('Google sign-in was cancelled'));
 
-        return;
-      }
-
-      final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      emit(LoginSuccess());
-    } catch (e) {
-      emit(LoginFailure(e.toString()));
-
-    }
-  }
 
 }

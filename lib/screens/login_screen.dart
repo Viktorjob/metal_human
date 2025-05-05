@@ -85,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: () {
-                      context.read<LoginBloc>().add(GoogleSignInRequested());
+
                     },
                     child: const Text("Sign in with Google"),
                   ),
