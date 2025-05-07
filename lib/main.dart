@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 import 'screens/home.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'; // Импортируем Bloc
+import 'blocs/login/login_bloc.dart'; // Импортируем LoginBloc
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,17 +19,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Firebase Login',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return BlocProvider(
+      create: (_) => LoginBloc(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (_) => const LoginScreen(),
+          '/home': (_) => const HomeScreen(),
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (_) => const LoginScreen(),
-        '/home': (_) => const HomeScreen(),
-      },
     );
   }
 }

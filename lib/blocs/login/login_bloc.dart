@@ -6,10 +6,11 @@ import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   LoginBloc() : super(LoginInitial()) {
     on<LoginSubmitted>(_onLoginSubmitted);
     on<RegisterSubmitted>(_onRegisterSubmitted);
+    on<LoginWithGooglePressed>(_onLoginWithGooglePressed);
 
   }
 
@@ -61,7 +62,31 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
+  Future<void> _onLoginWithGooglePressed(
+      LoginWithGooglePressed event,
+      Emitter<LoginState> emit,
+      ) async {
+    emit(LoginLoading());
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        emit(LoginInitial()); // пользователь отменил
+        return;
+      }
 
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+      emit(LoginSuccess());
+    } catch (e) {
+      emit(LoginFailure(e.toString()));
+    }
+  }
 
 
 }
