@@ -19,23 +19,20 @@ class LoginScreen extends StatelessWidget {
         child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginFailure) {
-              print("Ошибка входа: ${state.error}");
+              print("Login error.: ${state.error}");
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),
               );
             } else if (state is LoginSuccess) {
-              print("Авторизация успешна!");
+              print("Login successful!");
 
               final user = FirebaseAuth.instance.currentUser;
               if (user != null && !user.emailVerified) {
-                print("Email не подтвержден. Отправляем уведомление...");
+                print("Email not confirmed. Sending notification...");
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Please verify your email.')),
                 );
               } else {
-                // Переход на экран /home
-                print("Переходим на главный экран...");
-                // Важно использовать Navigator и убедиться, что он не вызван до готовности состояния
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.pushReplacementNamed(context, '/home');
                 });
@@ -60,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                 BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) {
                     if (state is LoginLoading) {
-                      print("В процессе загрузки...");
+                      print("Loading...");
                       return const CircularProgressIndicator();
                     }
                     return ElevatedButton(

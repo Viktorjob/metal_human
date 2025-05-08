@@ -43,19 +43,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         password: event.password,
       );
 
-      // Отправляем письмо с подтверждением
+
       await userCredential.user?.sendEmailVerification();
 
       emit(LoginSuccess());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        emit( LoginFailure('Этот email уже зарегистрирован.'));
+        emit( LoginFailure('This email is already registered.'));
       } else if (e.code == 'invalid-email') {
-        emit( LoginFailure('Неверный формат email.'));
+        emit( LoginFailure('The email format is invalid.'));
       } else if (e.code == 'weak-password') {
-        emit(LoginFailure('Пароль слишком слабый (минимум 6 символов).'));
+        emit(LoginFailure('The password is too weak (at least 6 characters required).'));
       } else {
-        emit(LoginFailure(e.message ?? 'Ошибка при регистрации.'));
+        emit(LoginFailure(e.message ?? 'Registration error.'));
       }
     } catch (e) {
       emit(LoginFailure(e.toString()));
@@ -70,7 +70,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        emit(LoginInitial()); // пользователь отменил
+        emit(LoginInitial());
         return;
       }
 
