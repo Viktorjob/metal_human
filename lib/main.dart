@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:metal_human/list_muscle_categories/repository.dart';
+import 'package:metal_human/list_muscle_categories/task_bloc.dart';
 import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 import 'screens/home.dart';
@@ -19,8 +21,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => LoginBloc(),
+    final taskRepository = TaskRepository();
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(
+          create: (_) => LoginBloc(),
+        ),
+        BlocProvider<TaskBloc>(
+          create: (_) => TaskBloc(taskRepository),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

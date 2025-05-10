@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import 'login_event.dart';
 import 'login_state.dart';
 
@@ -68,14 +69,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       ) async {
     emit(LoginLoading());
     try {
+
+      await _googleSignIn.signOut();
+
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        emit(LoginInitial());
+        emit(LoginFailure('Google sign-in was cancelled.'));
         return;
       }
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -90,3 +93,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
 
 }
+
+

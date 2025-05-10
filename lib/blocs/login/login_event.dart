@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:metal_human/blocs/login/login_bloc.dart';
+
 
 abstract class LoginEvent extends Equatable {
   @override
@@ -27,3 +27,5 @@ class RegisterSubmitted extends LoginEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+
