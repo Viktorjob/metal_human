@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
+   // final user = FirebaseAuth.instance.currentUser;
 
 
     context.read<TaskBloc>().add(LoadTasks());
@@ -70,10 +70,10 @@ class HomeScreen extends StatelessWidget {
                             child: Text(
                               task.name,
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                backgroundColor: Colors.black45,
+                                //backgroundColor: Colors.black45,
                               ),
                             ),
                           ),
@@ -92,4 +92,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

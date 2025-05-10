@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:metal_human/list_muscle_categories/repository.dart';
 import 'package:metal_human/list_muscle_categories/task_bloc.dart';
+import 'package:metal_human/menu_bar/menu_bar.dart';
 import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 import 'screens/home.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (_) => const LoginScreen(),
-          '/home': (_) => const HomeScreen(),
+          '/home': (_) => const BottomNavigationBarExample(),
         },
       ),
     );
